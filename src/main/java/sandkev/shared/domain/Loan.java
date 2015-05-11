@@ -11,16 +11,18 @@ public class Loan implements Identifiable<Long>{
     private final TitleItem titleItem;
     private final int takenOut;
     private final int dueBack;
+    private long loanReturnId;
 
     public Loan(Borrower borrower, TitleItem titleItem, int takenOut, int dueBack) {
-        this(-1, borrower, titleItem, takenOut, dueBack);
+        this(-1, borrower, titleItem, takenOut, dueBack, 0);
     }
-    public Loan(long id, Borrower borrower, TitleItem titleItem, int takenOut, int dueBack) {
+    public Loan(long id, Borrower borrower, TitleItem titleItem, int takenOut, int dueBack, long loanReturnId) {
         this.id = id;
         this.borrower = borrower;
         this.titleItem = titleItem;
         this.takenOut = takenOut;
         this.dueBack = dueBack;
+        this.loanReturnId = loanReturnId;
     }
 
     @Override
@@ -49,6 +51,14 @@ public class Loan implements Identifiable<Long>{
         return dueBack;
     }
 
+    public long getLoanReturnId() {
+        return loanReturnId;
+    }
+
+    public void setLoanReturnId(long loanReturnId) {
+        this.loanReturnId = loanReturnId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,6 +69,7 @@ public class Loan implements Identifiable<Long>{
         if (id != loan.id) return false;
         if (takenOut != loan.takenOut) return false;
         if (dueBack != loan.dueBack) return false;
+        if (loanReturnId != loan.loanReturnId) return false;
         if (borrower != null ? !borrower.equals(loan.borrower) : loan.borrower != null) return false;
         return !(titleItem != null ? !titleItem.equals(loan.titleItem) : loan.titleItem != null);
 
@@ -71,6 +82,7 @@ public class Loan implements Identifiable<Long>{
         result = 31 * result + (titleItem != null ? titleItem.hashCode() : 0);
         result = 31 * result + takenOut;
         result = 31 * result + dueBack;
+        result = 31 * result + (int) (loanReturnId ^ (loanReturnId >>> 32));
         return result;
     }
 
@@ -82,6 +94,7 @@ public class Loan implements Identifiable<Long>{
                 ", titleItem=" + titleItem +
                 ", takenOut=" + takenOut +
                 ", dueBack=" + dueBack +
+                ", loanReturnId=" + loanReturnId +
                 '}';
     }
 }

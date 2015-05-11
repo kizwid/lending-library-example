@@ -10,4 +10,5 @@ import java.util.List;
  * Created by kevin on 09/05/2015.
  */
 public interface TitleItemDao extends GenericDao<TitleItem, Long> {
+    TitleItem availableItem(Title title);
 }

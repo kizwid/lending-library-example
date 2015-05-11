@@ -19,7 +19,7 @@ public interface LibraryService {
     void returnItem(String borrowerName, String title, String titleType);
 
     Borrower registerBorrower(String name);
-    TitleItem addStock(String title, String type);
+    TitleItem addTitleItem(String title, String type);
 
 
 }

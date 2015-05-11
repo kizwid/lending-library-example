@@ -1,5 +1,6 @@
 package sandkev.server.dao;
 
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import sandkev.shared.dao.GenericDaoAbstractSpringJdbc;
 import sandkev.shared.domain.Title;
@@ -8,6 +9,8 @@ import sandkev.shared.domain.TitleType;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by kevin on 09/05/2015.
@@ -79,7 +82,7 @@ public class TitleDaoImpl extends GenericDaoAbstractSpringJdbc<Title, Long> impl
                 ")";
         try {
             long id = jdbcTemplate.queryForObject(sql,
-                    new Object[]{name, type},
+                    new Object[]{name, type.toUpperCase()},
                     Long.class);
             return findById(id);
         }catch (Exception ignore){
@@ -87,4 +90,27 @@ public class TitleDaoImpl extends GenericDaoAbstractSpringJdbc<Title, Long> impl
         }
         return null;
     }
+
+    @Override
+    public List<Title> findAvailable() {
+        String sql = "select * from v_inventory";
+        try {
+            return jdbcTemplate.query(dialectFriendlySql(sql), new Object[]{},
+                    new InventoryMapper());
+
+        }catch (Exception ignore){
+
+        }
+        return Collections.emptyList();
+    }
+
+    private final class InventoryMapper implements RowMapper {
+        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return  findByNameType(
+                    rs.getString("title_name"),
+                    rs.getString("title_type_name")
+            );
+        }
+    }
+
 }

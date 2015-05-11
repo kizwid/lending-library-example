@@ -43,14 +43,23 @@ create table loan(
  ,borrower_id number(38,0) not null
  ,taken_out int not null
  ,due_back int not null
- ,returned_on int not null
+ ,loan_return_id number(38,0) not null
  ,primary key(loan_id)
 );
 create unique index idx_l_pk on loan(title_item_id,borrower_id,taken_out);
 create index idx_l_who on loan(borrower_id)
 create index idx_l_taken on loan(taken_out)
 create index idx_l_due on loan(due_back)
-create index idx_l_returned on loan(returned_on)
+create index idx_l_returned on loan(loan_return_id)
 
 create sequence loan_seq;
 
+create table loan_return(
+  loan_return_id number(38,0) not null
+ ,loan_id number(38,0) not null
+ ,primary key(loan_return_id)
+);
+create unique index idx_lr_pk on loan_return(loan_return_id,loan_id);
+create index idx_lr_loan on loan_return(loan_id);
+
+create sequence loan_return_seq start with 1;
