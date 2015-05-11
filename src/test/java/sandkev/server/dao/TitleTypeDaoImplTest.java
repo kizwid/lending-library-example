@@ -23,8 +23,6 @@ public class TitleTypeDaoImplTest extends AbstractDatabaseTest{
         TitleType checkByName = dao.findByName(titleType.getName());
         assertEquals(titleType, checkByName);
 
-
-
     }
 
 }
