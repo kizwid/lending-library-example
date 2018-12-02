@@ -2,12 +2,24 @@ package sandkev.client;
 
 import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
-import sandkev.server.dao.*;
+import sandkev.server.dao.BorrowerDao;
+import sandkev.server.dao.BorrowerDaoImpl;
+import sandkev.server.dao.LoanDao;
+import sandkev.server.dao.LoanDaoImpl;
+import sandkev.server.dao.LoanReturnDao;
+import sandkev.server.dao.LoanReturnDaoImpl;
+import sandkev.server.dao.TitleDao;
+import sandkev.server.dao.TitleDaoImpl;
+import sandkev.server.dao.TitleItemDao;
+import sandkev.server.dao.TitleItemDaoImpl;
 import sandkev.server.util.FormatUtil;
-import sandkev.shared.domain.*;
+import sandkev.shared.domain.Borrower;
+import sandkev.shared.domain.Loan;
+import sandkev.shared.domain.LoanReturn;
+import sandkev.shared.domain.Title;
+import sandkev.shared.domain.TitleItem;
 
 import javax.sql.DataSource;
-import java.util.Date;
 import java.util.List;
 
 /**
