@@ -79,7 +79,7 @@ public abstract class AbstractDatabaseTest {
 
             Properties properties = Ut.load("datastore/dbmaintain.properties");
             Properties p = new Properties();
-            p.setProperty("baseDir", new File(Ut.file(".").getParentFile(),"classes").getCanonicalPath() + "/");
+            p.setProperty("baseDir", new File(Ut.file(".").getParentFile(),"classes").getCanonicalPath().replace("%20", " ") + "/");
 
             commonProperties.processProperties(properties, p);
             dbMaintainMainFactory = new MainFactory(properties);
